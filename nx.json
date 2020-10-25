@@ -22,7 +22,15 @@
       }
     }
   },
-  "projects": {},
+  "projects": {
+    "redux-concepts": {
+      "tags": []
+    },
+    "redux-concepts-e2e": {
+      "tags": [],
+      "implicitDependencies": ["redux-concepts"]
+    }
+  },
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"

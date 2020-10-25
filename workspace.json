@@ -1,7 +1,124 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "redux-concepts": {
+      "root": "packages/redux-concepts",
+      "sourceRoot": "packages/redux-concepts/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/packages/redux-concepts",
+            "index": "packages/redux-concepts/src/index.html",
+            "main": "packages/redux-concepts/src/main.tsx",
+            "polyfills": "packages/redux-concepts/src/polyfills.ts",
+            "tsConfig": "packages/redux-concepts/tsconfig.app.json",
+            "assets": [
+              "packages/redux-concepts/src/favicon.ico",
+              "packages/redux-concepts/src/assets"
+            ],
+            "styles": ["packages/redux-concepts/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/redux-concepts/src/environments/environment.ts",
+                  "with": "packages/redux-concepts/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "redux-concepts:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "redux-concepts:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/redux-concepts/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/redux-concepts/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "redux-concepts-e2e": {
+      "root": "packages/redux-concepts-e2e",
+      "sourceRoot": "packages/redux-concepts-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "packages/redux-concepts-e2e/cypress.json",
+            "tsConfig": "packages/redux-concepts-e2e/tsconfig.e2e.json",
+            "devServerTarget": "redux-concepts:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "redux-concepts:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/redux-concepts-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "redux-concepts"
 }
